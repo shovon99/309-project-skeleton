@@ -15,10 +15,10 @@ exports.all = function(req, res)
     } else {
       console.log("api called");
 
-        res.render('./../public/views/article/all.ejs' , {
+        res.render('./../public/views/product/all.ejs' , {
         user: req.user || null,
         request: req,
-        articles: data
+        products: data
       });
     }
   });
@@ -30,7 +30,7 @@ exports.all = function(req, res)
 
 exports.new = function(req, res)
 {
-  res.render('./../public/views/article/create.ejs' , {
+  res.render('./../public/views/product/create.ejs' , {
     user: req.user || null,
     request: req
   });
@@ -39,7 +39,7 @@ exports.new = function(req, res)
 
 exports.view = function(req, res)
 {
-  res.render('./../public/views/article/view.ejs' , {
+  res.render('./../public/views/product/view.ejs' , {
     user: req.user || null,
     request: req
   });
@@ -49,9 +49,10 @@ exports.view = function(req, res)
 
 exports.edit = function(req, res)
 {
-  res.render('./../public/views/article/edit.ejs' , {
+  res.render('./../public/views/product/edit.ejs' , {
     user: req.user || null,
-    request: req
+    request: req,
+    product: req.product
   });
 };
 
@@ -61,7 +62,7 @@ exports.edit = function(req, res)
 
 
 module.exports.list = function(req, res) {
-  Article.find(function(err, data) {
+  Product.find(function(err, data) {
     if (err) {
       return res.status(400).send({
 
@@ -76,9 +77,9 @@ module.exports.list = function(req, res) {
 };
 
 module.exports.create = function(req, res) {
-  var article = new Article(req.body);
-  article.user = req.user;
-  article.save(function(err, data) {
+  var product = new Product(req.body);
+  product.user = req.user;
+  product.save(function(err, data) {
     if (err) {
       return res.status(400).send({
 
@@ -91,41 +92,41 @@ module.exports.create = function(req, res) {
 };
 
 module.exports.read = function(req, res) {
-  res.json(req.article);
+  res.json(req.product);
 };
 
 
 exports.delete = function(req, res) {
-	var article = req.article;
-	article.remove(function(err) {
+	var product = req.product;
+	product.remove(function(err) {
 		if (err) {
 			return res.status(400).send();
 		} else {
-			res.json(article);
+			res.json(product);
 		}
 	});
 };
 
 
 module.exports.update = function(req, res) {
-  var article = req.article;
+  var product = req.product;
 
-  	article = _.extend(article, req.body);
+  	product = _.extend(product, req.body);
 
-  	article.save(function(err) {
+  	product.save(function(err) {
   		if (err) {
   			return res.status(400).send();
   		} else {
-  			res.json(article);
+  			res.json(product);
   		}
   	});
 };
 
-exports.articleByID = function(req, res, next, id) {
-	Article.findById(id).populate('user', 'email').exec(function(err, article) {
+exports.productByID = function(req, res, next, id) {
+	Product.findById(id).populate('user', 'email').exec(function(err, product) {
 		if (err) return next(err);
-		if (!article) return next(new Error('Failed to load article ' + id));
-		req.article = article;
+		if (!product) return next(new Error('Failed to load product ' + id));
+		req.product = product;
 		next();
 	});
 };

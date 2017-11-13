@@ -1,0 +1,63 @@
+<html>
+    <head>
+        <title>
+            Edit Product
+        </title>
+        
+    </head>
+    
+    <body>
+        <h1>Edit Product</h1>
+        <div>
+            Name:
+            <input type="text" id="name" value="<%= product.Name %>" />
+        </div>
+        <br>
+        <div>
+            Description:
+            <textarea id="description" value="<%= product.Description %>"></textarea>
+        </div><br>
+        <div>
+            Price:
+            <input type="number" id="price" value="<%= product.Price %>"/>
+        </div><br>
+        <div>
+            Quantity:
+            <input type="number" id="quantity" value="<%= product.Quantity %>"/>
+        </div>
+        <br>
+        <button id="submit">Update</button>
+        
+        <script src="/lib/jquery/dist/jquery.min.js" ></script>
+        <script>
+            var product = {Name:"", Description:"", Price:"", Quantity:""};
+            $("#name").change(function(){
+                product.Name = $("#name").val();
+            });
+            $("#description").change(function(){
+                product.Description = $("#description").val();
+            });
+            $("#price").change(function(){
+                product.Price = $("#price").val();
+            });
+            $("#quantity").change(function(){
+                product.Quantity = $("#quantity").val();
+            });
+            $("#submit").click(function(){
+                $.ajax({
+                   method: "POST",
+                   url: "/api/products",
+                   data: product
+                }).done(function(res)
+                {
+                    alert("Succuess!");
+                    console.log(res);
+                });
+            });
+        </script>
+        
+        
+        
+    </body>
+    
+</html>

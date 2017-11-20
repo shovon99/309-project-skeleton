@@ -15,7 +15,7 @@
         <br>
         <div>
             Description:
-            <textarea id="description" value="<%= product.Description %>"></textarea>
+            <textarea id="description"> <%= product.Description %> </textarea>
         </div><br>
         <div>
             Price:
@@ -53,6 +53,7 @@
                 {
                     alert("Succuessfully Edited !");
                     console.log(res);
+                    window.location.href = "/products/"+res._id;
                 }).fail(function(res)
                 {
                     alert("Failed" + " " + JSON.parse(res.responseText).message);

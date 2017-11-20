@@ -1,17 +1,23 @@
 <html>
     <head>
         <title>
-            Products
+            Product
         </title>
         
     </head>
     
     <body>
-        <h1>Products</h1>
+        <h1>Product</h1>
         <% console.log(request) %>
         <h2> Product Name: <%= request.product.Name %>  </h2> 
-    
-        <p>  <%= request.product.Description %> </p>
+        <h2> Product Id: <%= request.product._id %>  </h2> 
+        <h2> Product Price <%= request.product.Price %> </h2>
+        <h2> Prouduct Description  <%= request.product.Description %> </h2>
+        
+        
+        <a href="/products/edit/<%= request.product._id %>"> <Button> Edit This Product </Button> </a>
+        
+        <a href="/products/all"> <Button>Show All Products</Button> </a>
         
         
         

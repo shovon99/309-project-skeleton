@@ -30,7 +30,8 @@
         
         <script src="/lib/jquery/dist/jquery.min.js" ></script>
         <script>
-            var product = {Name:"", Description:"", Price:"", Quantity:""};
+            var product = {};
+            var productId = <%- JSON.stringify(request.product._id) %>
             $("#name").change(function(){
                 product.Name = $("#name").val();
             });
@@ -45,13 +46,16 @@
             });
             $("#submit").click(function(){
                 $.ajax({
-                   method: "POST",
-                   url: "/api/products",
+                   method: "PUT",
+                   url: "/api/products/edit/" + productId,
                    data: product
                 }).done(function(res)
                 {
-                    alert("Succuess!");
+                    alert("Succuessfully Edited !");
                     console.log(res);
+                }).fail(function(res)
+                {
+                    alert("Failed" + " " + JSON.parse(res.responseText).message);
                 });
             });
         </script>

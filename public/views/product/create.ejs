@@ -52,6 +52,10 @@
                 {
                     alert("Succuess!");
                     console.log(res);
+                    window.location.href = "/products/"+res._id;
+                }).fail(function(res)
+                {
+                    alert("Form Submission Error" + JSON.parse(res.responseText).message);
                 });
             });
         </script>
